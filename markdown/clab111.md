@@ -49,7 +49,7 @@ SW2(config)#
 R1>en
 R1#conf t
 Enter configuration commands, one per line.  End with CNTL/Z.
-R1(config)#username person password access
+R1(config)#username person secret access
 R1(config)#enable secret ccnaskills
 R1(config)#line console 0
 R1(config-line)#password certskills
@@ -84,8 +84,6 @@ R2#
 ```
 
 ---
-
-
 
 ```
 SW1#show run
@@ -192,8 +190,6 @@ line vty 5 15
 !
 end
 ```
-
-
 
 ```
 SW2#show run
