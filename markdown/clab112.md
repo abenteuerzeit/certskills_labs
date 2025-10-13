@@ -2,97 +2,112 @@
 
 ![](../images/clab112_img1.svg)
 
+## Requirements
+
+For this lab, we will place two of the GigabitEthernet ports on switch SW1 into VLAN 10 and two other GigabitEthernet ports into VLAN 20, creating two separate broadcast domains on the switch. VLAN 10 will be labeled “office,” and VLAN 20 will be labeled “research.”
+
+> VLANs help reduce CPU overhead on a switch by limiting the ports that receive a broadcast frame. They also enhance security by limiting traffic flow.
+
+The specific rules for this lab are as follows:
+
+1. On Switch SW1, create VLAN 10 and name the VLAN “Office.” Create VLAN 20 and name the VLAN “Research.”
+2. Configure GigabitEthernet ports 1/0/1 and 1/0/2 into VLAN 10.
+3. Configure GigabitEthernet ports 1/0/3 and 1/0/4 into VLAN 20.
+
 ## Initial Configuration
 
 All ports are currently set to their default settings, other than the switch has a **hostname SW1** command configured.
 
-## Answer Options - Click Tabs to Reveal
+```
+SW1>en
+SW1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW1(config)#vlan 10
+SW1(config-vlan)#name Office
+SW1(config-vlan)#vlan 20
+SW1(config-vlan)#name Research
+SW1(config-vlan)#do sh int st
+Port      Name               Status       Vlan       Duplex  Speed Type
+Gig1/0/1                     connected    1          auto    auto  10/100BaseTX
+Gig1/0/2                     connected    1          auto    auto  10/100BaseTX
+Gig1/0/3                     connected    1          auto    auto  10/100BaseTX
+Gig1/0/4                     connected    1          auto    auto  10/100BaseTX
+Gig1/0/5                     notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/6                     notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/7                     notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/8                     notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/9                     notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/10                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/11                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/12                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/13                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/14                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/15                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/16                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/17                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/18                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/19                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/20                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/21                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/22                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/23                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/24                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/1/1                     notconnect   1          auto    auto  10/100BaseTX
+Gig1/1/2                     notconnect   1          auto    auto  10/100BaseTX
+Gig1/1/3                     notconnect   1          auto    auto  10/100BaseTX
+Gig1/1/4                     notconnect   1          auto    auto  10/100BaseTX
 
-- Option 1: Paper/Editor
-- Option 2: Cisco Packet Tracer
-- Option 3: Cisco Modeling Labs
+SW1(config-vlan)#
+SW1(config-vlan)#int r g1/0/1-2
+SW1(config-if-range)#switchport mode access
+SW1(config-if-range)#switchport access vlan 10
+SW1(config-if-range)#int r g1/0/3-4
+SW1(config-if-range)#switchport mode access
+SW1(config-if-range)#switchport access vlan 20
+SW1(config-if-range)#do show int st
+Port      Name               Status       Vlan       Duplex  Speed Type
+Gig1/0/1                     connected    10         auto    auto  10/100BaseTX
+Gig1/0/2                     connected    10         auto    auto  10/100BaseTX
+Gig1/0/3                     connected    20         auto    auto  10/100BaseTX
+Gig1/0/4                     connected    20         auto    auto  10/100BaseTX
+Gig1/0/5                     notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/6                     notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/7                     notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/8                     notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/9                     notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/10                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/11                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/12                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/13                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/14                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/15                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/16                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/17                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/18                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/19                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/20                    notconnect   1          auto    auto  10/100BaseTX
+Gig1/0/21                    notconnect   1          auto    auto  10/100BaseTX
 
-#### Option 1: Paper/Editor
+SW1(config-if-range)#do show vlan b
 
-You can learn a lot and strengthen real learning of the topics by creating the configuration – even without a router or switch CLI. In fact, these labs were originally built to be used solely as a paper exercise!
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Gig1/0/5, Gig1/0/6, Gig1/0/7, Gig1/0/8
+                                                Gig1/0/9, Gig1/0/10, Gig1/0/11, Gig1/0/12
+                                                Gig1/0/13, Gig1/0/14, Gig1/0/15, Gig1/0/16
+                                                Gig1/0/17, Gig1/0/18, Gig1/0/19, Gig1/0/20
+                                                Gig1/0/21, Gig1/0/22, Gig1/0/23, Gig1/0/24
+                                                Gig1/1/1, Gig1/1/2, Gig1/1/3, Gig1/1/4
+10   Office                           active    Gig1/0/1, Gig1/0/2
+20   Research                         active    Gig1/0/3, Gig1/0/4
+1002 fddi-default                     active
+1003 token-ring-default               active
+1004 fddinet-default                  active
+1005 trnet-default                    active
+SW1(config-if-range)#
+```
 
-To answer, just think about the lab. Refer to your primary learning material for CCNA, your notes, and create the configuration on paper or in a text editor. Then check your answer versus the answer post, which is linked at the bottom of the lab, just above the comments section.
 
-#### Option 2: Cisco Packet Tracer
-
-You can also implement the lab using the Cisco Packet Tracer network simulator. With this option, you use Cisco’s free Packet Tracer simulator. You open a file that begins with the initial configuration already loaded. Then you implement your configuration and test to determine if it met the requirements of the lab.
-
-[(Use this link for more information about Cisco Packet Tracer.](https://www.certskills.com/packettracer))
-
-Use this workflow to do the labs in Cisco Packet Tracer:
-
-1. Download the .pkt file linked below.
-2. Open the .pkt file, creating a working lab with the same topology and interfaces as the lab exercise.
-3. Add your planned configuration to the lab.
-4. Test the configuration using some of the suggestions below.
-
-[Download this lab’s Packet Tracer File](https://files.certskills.com/virl/clab112.pkt)
-
-#### Option 3: Cisco Modeling Labs
-
-You can also implement the lab using [Cisco Modeling Labs – Personal (CML-P)](https://developer.cisco.com/modeling-labs/). CML-P (or simply CML) replaced Cisco [Virtual Internet Routing Lab (VIRL)](https://virl.cisco.com/) software in 2020, in effect serving as VIRL Version 2.
-
-If you prefer to use CML, use a similar workflow as you would use if using Cisco Packet Tracer, as follows:
-
-1. Download the CML file (filetype .yaml) linked below.
-2. Import the lab’s CML file into CML and then start the lab.
-3. Compare the lab topology and interface IDs to this lab, as they may differ (more detail below).
-4. Add your planned configuration to the lab.
-5. Test the configuration using some of the suggestions below.
-
-[Download this lab’s CML file!](https://files.certskills.com/virl/clab112.yaml)
-
-#### Network Device Info:
-
-| **Device** | **Lab Port** | **CML Port** |
-| --- | --- | --- |
-| SW1 | G1/0/1 | G0/1 |
-| SW1 | G1/0/2 | G0/2 |
-| SW1 | G1/0/3 | G0/3 |
-| SW1 | G1/0/4 | G1/0 |
-
-#### Host device info:
-
-This table lists the interfaces listed in the lab exercise documentation versus those used in the sample CML file.
-
-| **Device** | **IP Address** | **Mac Address** | **User/password** |
-| --- | --- | --- | --- |
-| PC1 | 10.1.1.1 | 02:00:11:11:11:11 | cisco/cisco |
-| PC2 | 10.1.1.2 | 02:00:22:22:22:22 | cisco/cisco |
-| PC3 | 10.3.3.3 | 02:00:33:33:33:33 | cisco/cisco |
-| PC4 | 10.3.3.4 | 02:00:44:44:44:44 | cisco/cisco |
-
-####
-
-# Lab Answers Below: Spoiler Alert
-
----
-
-## Answers
-
-    vlan 10
-     name office
-    !
-    vlan 20
-     name research
-    !
-    interface GigabitEthernet1/0/1
-     switchport access vlan 10
-    !
-    interface GigabitEthernet1/0/2
-     switchport access vlan 10
-    !
-    interface GigabitEthernet1/0/3
-     switchport access vlan 20
-    !
-    interface GigabitEthernet1/0/4
-     switchport access vlan 20
-
-#### Example 2: SW1 Config
-
-##
+> Creating VLANs on a switch is as simple as typing vlan vlan-id, where vlan-id is a number of your choice. Once the vlan vlan-id command is entered, the switch will immediately create the VLAN and move you to VLAN configuration mode. The name subcommand in VLAN configuration mode can then be used to give the VLAN any name that you would like. This example shows the two VLANs being created with two vlan global commands, each followed by a command to name the VLANs.
+>Each port needs to be assigned to the correct VLAN per the requirements and figure. The switchport access vlan vlan-id command makes that assignment.
+>Finally, this configuration does not include the switchport mode access command, but you would likely also add that command to each port. The lab did not comment on whether the configuration should ensure each port acts as an access port. As shown here, each port could negotiate VLAN trunking. With the switchport mode access command on a port, it would operate only as an access port and use the VLAN as defined in the switchport access vlan command.
